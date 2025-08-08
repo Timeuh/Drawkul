@@ -23,6 +23,8 @@ services:
     env_file: ./app/backend/.env
     volumes:
       - ./app/backend:/app
+    ports:
+      - "59112:3333"
     working_dir: /app
     networks:
       - drawkul-network
