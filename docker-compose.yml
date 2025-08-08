@@ -14,6 +14,19 @@ services:
     networks:
       - drawkul-network
 
+  back:
+    container_name: drawkul-back
+    build:
+      context: ./app/backend
+      target: dev
+    restart: unless-stopped
+    env_file: ./app/backend/.env
+    volumes:
+      - ./app/backend:/app
+    working_dir: /app
+    networks:
+      - drawkul-network
+
   adminer:
     image: adminer
     container_name: drawkul-adminer
