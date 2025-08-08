@@ -1,0 +1,9 @@
+{
+  "version": "1",
+  "name": "Drawkul",
+  "type": "collection",
+  "ignore": [
+    "node_modules",
+    ".git"
+  ]
+}
