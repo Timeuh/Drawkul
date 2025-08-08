@@ -32,6 +32,6 @@ services:
     networks:
       - drawkul-network
 
-  networks:
-    drawkul-network:
-      driver: bridge
+networks:
+  drawkul-network:
+    driver: bridge
