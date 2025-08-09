@@ -1,6 +1,6 @@
+import { prisma } from '#utils/prisma/client';
 import { createArtistValidator } from '#validators/artist';
 import type { HttpContext } from '@adonisjs/core/http'
-import { prisma } from '../utils/prisma/client.js';
 
 export default class ArtistsController {
   /**
