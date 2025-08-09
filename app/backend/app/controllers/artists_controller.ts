@@ -1,3 +1,4 @@
+import { errorCreationResponse } from '#utils/functions/errorCreationResponse';
 import { successfulCreationResponse } from '#utils/functions/successfulCreationResponse';
 import { prisma } from '#utils/prisma/client';
 import { Artist, ArtistCreationPayload } from '#utils/types/artist';
@@ -30,10 +31,7 @@ export default class ArtistsController {
       console.error('Error creating artist:', error);
 
       // return the error response
-      return {
-        status: 'error',
-        message: `Failed to create artist, ${payload.name} already exists !`
-      }
+      return errorCreationResponse(`Failed to create artist, ${payload.name} already exists !`);
     }
   }
 
