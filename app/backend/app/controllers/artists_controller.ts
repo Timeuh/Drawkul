@@ -1,4 +1,6 @@
+import { createArtistValidator } from '#validators/artist';
 import type { HttpContext } from '@adonisjs/core/http'
+import { prisma } from '../utils/prisma/client.js';
 
 export default class ArtistsController {
   /**
@@ -10,7 +12,31 @@ export default class ArtistsController {
    * Handle form submission for the create action
    */
   async store({ request }: HttpContext) {
-    console.log(request.body());
+    // validate received data
+    const payload = await request.validateUsing(createArtistValidator);
+
+    try {
+      // create artist in database
+      const creation = await prisma.artist.create({
+        data: payload
+      });
+
+      // return success response
+      return {
+        status: 'success',
+        data: creation,
+        message: 'Artist created successfully'
+      };
+    } catch (error) {
+      // log the error on the server
+      console.error('Error creating artist:', error);
+
+      // return the error response
+      return {
+        status: 'error',
+        message: `Failed to create artist, ${payload.name} already exists !`
+      }
+    }
   }
 
   /**
