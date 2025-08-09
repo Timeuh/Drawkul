@@ -8,9 +8,6 @@
 */
 
 import router from '@adonisjs/core/services/router'
+import ArtistsController from '#controllers/artists_controller';
 
-router.get('/', async () => {
-  return {
-    hello: 'world',
-  }
-})
+router.resource('artists', ArtistsController).apiOnly();
