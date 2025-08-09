@@ -7,3 +7,83 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model Tier {
+  id         Int          @id @default(autoincrement())
+  name       String       @unique
+  Collection Collection[]
+}
+
+model Artist {
+  id   Int    @id @default(autoincrement())
+  name String @unique
+  Card Card[]
+}
+
+model Season {
+  id   Int    @id @default(autoincrement())
+  name String @unique
+  Card Card[]
+}
+
+model Character {
+  id   Int    @id @default(autoincrement())
+  name String @unique
+  Card Card[]
+}
+
+model Droprate {
+  id   Int    @id @default(autoincrement())
+  name String @unique
+  Card Card[]
+}
+
+model Rarity {
+  id   Int    @id @default(autoincrement())
+  name String @unique
+  Card Card[]
+}
+
+model Card {
+  id             Int          @id @default(autoincrement())
+  title          String
+  number         Int
+  winner_effect  String
+  looser_effect  String
+  special_effect String
+  rule           String
+  combo          String
+  citation       String
+  artist         Artist       @relation(fields: [artist_id], references: [id])
+  artist_id      Int
+  season         Season       @relation(fields: [season_id], references: [id])
+  season_id      Int
+  character      Character    @relation(fields: [character_id], references: [id])
+  character_id   Int
+  droprate       Droprate     @relation(fields: [droprate_id], references: [id])
+  droprate_id    Int
+  rarity         Rarity       @relation(fields: [rarity_id], references: [id])
+  rarity_id      Int
+  Collection     Collection[]
+}
+
+model User {
+  email         String       @id @unique
+  name          String
+  password      String
+  profile_image String
+  points        Int
+  Collection    Collection[]
+}
+
+model Collection {
+  card     Card   @relation(fields: [card_id], references: [id])
+  card_id  Int
+  user     User   @relation(fields: [user_id], references: [email])
+  user_id  String
+  quantity Int
+  tier     Tier   @relation(fields: [tier_id], references: [id])
+  tier_id  Int
+
+  @@id([card_id, user_id])
+}
