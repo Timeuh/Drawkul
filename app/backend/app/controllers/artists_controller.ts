@@ -1,4 +1,5 @@
 import { prisma } from '#utils/prisma/client';
+import { Artist, ArtistCreationPayload } from '#utils/types/artist';
 import { createArtistValidator } from '#validators/artist';
 import type { HttpContext } from '@adonisjs/core/http'
 
@@ -13,11 +14,11 @@ export default class ArtistsController {
    */
   async store({ request }: HttpContext) {
     // validate received data
-    const payload = await request.validateUsing(createArtistValidator);
+    const payload: ArtistCreationPayload = await request.validateUsing(createArtistValidator);
 
     try {
       // create artist in database
-      const creation = await prisma.artist.create({
+      const creation: Artist = await prisma.artist.create({
         data: payload
       });
 
