@@ -1,3 +1,4 @@
+import { successfulCreationResponse } from '#utils/functions/successfulCreationResponse';
 import { prisma } from '#utils/prisma/client';
 import { Artist, ArtistCreationPayload } from '#utils/types/artist';
 import { createArtistValidator } from '#validators/artist';
@@ -23,11 +24,7 @@ export default class ArtistsController {
       });
 
       // return success response
-      return {
-        status: 'success',
-        data: creation,
-        message: 'Artist created successfully'
-      };
+      return successfulCreationResponse<Artist>(creation, 'Artist');
     } catch (error) {
       // log the error on the server
       console.error('Error creating artist:', error);
