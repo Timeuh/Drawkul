@@ -1,6 +1,5 @@
 import sendErrorResponse from '#utils/functions/errorResponse';
-import { successfulCreationResponse } from '#utils/functions/successfulCreationResponse';
-import { successfulUpdateResponse } from '#utils/functions/successfulUpdateResponse';
+import { successResponse } from '#utils/functions/successResponse';
 import { prisma } from '#utils/prisma/client';
 import { Artist, ArtistCreationPayload } from '#utils/types/artist';
 import { createArtistValidator, updateArtistValidator } from '#validators/artist';
@@ -26,7 +25,7 @@ export default class ArtistsController {
       });
 
       // return success response
-      return successfulCreationResponse<Artist>(creation, 'Artist');
+      return successResponse<Artist>(creation, 'Artist created successfully');
     } catch (error) {
       // log the error on the server
       console.error('Error creating artist:', error);
@@ -58,7 +57,7 @@ export default class ArtistsController {
       });
 
       // return success response
-      return successfulUpdateResponse<Artist>(update, 'Artist');
+      return successResponse<Artist>(update, 'Artist updated successfully');
     } catch (error) {
       // log the error on the server
       console.error('Error updating artist:', error);
