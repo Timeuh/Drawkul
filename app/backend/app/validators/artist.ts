@@ -8,3 +8,12 @@ export const createArtistValidator = vine.compile(
     name: vine.string().trim(),
   })
 )
+
+/**
+ * Validates the artist's update action
+ */
+export const updateArtistValidator = vine.compile(
+  vine.object({
+    name: vine.string().trim(),
+  })
+)
