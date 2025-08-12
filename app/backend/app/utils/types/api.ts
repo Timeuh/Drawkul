@@ -10,7 +10,10 @@ export type ApiResponse<T> = {
 }
 
 // api response object for errors
-export type ApiErrorResponse = {
-  status: 'error';
-  message: string;
-}
+export type ApiError = {
+  error: {
+    code: number;
+    message: string;
+    details: unknown;
+  };
+};
