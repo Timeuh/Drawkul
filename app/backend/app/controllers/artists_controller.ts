@@ -1,8 +1,9 @@
-import { errorCreationResponse } from '#utils/functions/errorCreationResponse';
+import sendErrorResponse from '#utils/functions/errorResponse';
 import { successfulCreationResponse } from '#utils/functions/successfulCreationResponse';
+import { successfulUpdateResponse } from '#utils/functions/successfulUpdateResponse';
 import { prisma } from '#utils/prisma/client';
 import { Artist, ArtistCreationPayload } from '#utils/types/artist';
-import { createArtistValidator } from '#validators/artist';
+import { createArtistValidator, updateArtistValidator } from '#validators/artist';
 import type { HttpContext } from '@adonisjs/core/http'
 
 export default class ArtistsController {
@@ -31,7 +32,7 @@ export default class ArtistsController {
       console.error('Error creating artist:', error);
 
       // return the error response
-      return errorCreationResponse(`Failed to create artist, ${payload.name} already exists !`);
+      return sendErrorResponse(error);
     }
   }
 
@@ -46,8 +47,25 @@ export default class ArtistsController {
    * Handle form submission for the edit action
    */
   async update({ params, request }: HttpContext) {
-    console.log(params.id);
-    console.log(request.body());
+    // validate received data
+    const payload: ArtistCreationPayload = await request.validateUsing(updateArtistValidator);
+
+    try {
+      // update artist in database
+      const update: Artist = await prisma.artist.update({
+        where: { id: Number(params.id) },
+        data: payload
+      });
+
+      // return success response
+      return successfulUpdateResponse<Artist>(update, 'Artist');
+    } catch (error) {
+      // log the error on the server
+      console.error('Error updating artist:', error);
+
+      // return the error response
+      return sendErrorResponse(error);
+    }
   }
 
   /**
