@@ -4,9 +4,9 @@
 
 // api response object
 export type ApiResponse<T> = {
-  status: 'success';
-  data: T;
+  code: number;
   message: string;
+  data: T;
 }
 
 // api response object for errors
