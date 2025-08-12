@@ -71,6 +71,20 @@ export default class ArtistsController {
    * Delete record
    */
   async destroy({ params }: HttpContext) {
-    console.log(params.id);
+    try {
+      // delete artist in database
+      const deletion: Artist = await prisma.artist.delete({
+        where: { id: Number(params.id) }
+      });
+
+      // return success response
+      return successResponse<Artist>(deletion, 'Artist deleted successfully');
+    } catch (error) {
+      // log the error on the server
+      console.error('Error deleting artist:', error);
+
+      // return the error response
+      return sendErrorResponse(error);
+    }
   }
 }
