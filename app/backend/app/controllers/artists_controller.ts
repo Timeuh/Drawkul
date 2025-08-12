@@ -1,4 +1,4 @@
-import sendErrorResponse from '#utils/functions/errorResponse';
+import errorResponse from '#utils/functions/errorResponse';
 import { successResponse } from '#utils/functions/successResponse';
 import { prisma } from '#utils/prisma/client';
 import { Artist, ArtistCreationPayload } from '#utils/types/artist';
@@ -31,7 +31,7 @@ export default class ArtistsController {
       console.error('Error creating artist:', error);
 
       // return the error response
-      return sendErrorResponse(error);
+      return errorResponse(error);
     }
   }
 
@@ -63,7 +63,7 @@ export default class ArtistsController {
       console.error('Error updating artist:', error);
 
       // return the error response
-      return sendErrorResponse(error);
+      return errorResponse(error);
     }
   }
 
@@ -84,7 +84,7 @@ export default class ArtistsController {
       console.error('Error deleting artist:', error);
 
       // return the error response
-      return sendErrorResponse(error);
+      return errorResponse(error);
     }
   }
 }

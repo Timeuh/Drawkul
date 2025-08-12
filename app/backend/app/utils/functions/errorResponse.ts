@@ -6,7 +6,7 @@ import { ApiError } from "#utils/types/api";
  *
  * @param {any} error the error object
  */
-const sendErrorResponse = (error: any) => {
+const errorResponse = (error: any) => {
   const apiError: ApiError = {
     error: {
       code: HTTP_SERVER_ERROR,
@@ -52,4 +52,4 @@ const sendErrorResponse = (error: any) => {
   return apiError;
 };
 
-export default sendErrorResponse;
+export default errorResponse;
